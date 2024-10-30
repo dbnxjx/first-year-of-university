@@ -1,0 +1,44 @@
+#include<stdio.h>
+
+char code(char input)
+{
+	 //取出 4 5 交换
+	 char fourfive = ((input&0x10)<<1)|((input&0x20)>>1);
+	 //取出23 交换
+	 char towthree = ((input&0x04)<<1)|((input&0x08)>>1);
+	 //取出01 交换
+	 char zeroone = ((input&0x01)<<1)|((input&0x02)>>1);
+	 //和
+	 char zf = zeroone|towthree|fourfive;
+	 //移动操作
+	 	//取出 6 7 
+	 char num = input >> 6;
+	 	//移动
+	for(int i = 0;i<num;i++)
+	{
+		zf = (zf>>5)|(zf<<1);
+	}
+	//合起来
+	return (num<<6)|zf;
+}
+
+
+
+int main()
+{
+	//读入数据				记得修改此处的 \n ！！！！！！！
+//	char c = '0';
+//	while((c = getchar()) != '\n')
+//	{
+//		printf("%c",code(c));
+//	}
+	char buf[100];
+	gets(buf);
+	int i = 0;
+	while(buf[i]!='\0')
+	{
+		printf("%c",code(buf[i++]));
+	}
+		
+	return 0;
+}
